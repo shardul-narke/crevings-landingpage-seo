@@ -2062,7 +2062,7 @@ export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPageState] = useState(() => {
     const path = window.location.pathname.toLowerCase();
-    if (path === '/customerprivacypolicy' || path === '/customerprivacypolicy/') {
+    if (path.includes('customerprivacypolicy')) {
       return 'customerprivacypolicy';
     }
     return 'food';
@@ -2080,7 +2080,7 @@ export default function App() {
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname.toLowerCase();
-      if (path === '/customerprivacypolicy' || path === '/customerprivacypolicy/') {
+      if (path.includes('customerprivacypolicy')) {
         setCurrentPageState('customerprivacypolicy');
       } else {
         setCurrentPageState('food');
