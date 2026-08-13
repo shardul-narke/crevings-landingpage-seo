@@ -10,6 +10,7 @@ import FoodTermsPage from './FoodTermsPage';
 import FoodRefundPolicyPage from './FoodRefundPolicyPage';
 import FoodListingGuidancePage from './FoodListingGuidancePage';
 import FoodPrivacyPage from './FoodPrivacyPage';
+import CustomerPrivacyPolicyPage from './CustomerPrivacyPolicyPage';
 import { 
   ArrowRight, ArrowDown, CheckCircle2, Clock, TrendingDown, Settings, 
   PieChart, Megaphone, Store, CreditCard,
@@ -947,24 +948,9 @@ function Footer({ currentPage, setCurrentPage }: { currentPage: string, setCurre
           </div>
 
           <div>
-            <h4 className="font-semibold text-gray-900 mb-6">Food Partner Policies</h4>
+            <h4 className="font-semibold text-gray-900 mb-6">Customer Policies</h4>
             <ul className="space-y-4">
-              <li><button onClick={() => setCurrentPage('food-privacy')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Privacy Policy</button></li>
-              <li><button onClick={() => setCurrentPage('food-terms')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Terms & Conditions</button></li>
-              <li><button onClick={() => setCurrentPage('food-refund')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Refund Policy</button></li>
-              <li><button onClick={() => setCurrentPage('food-listing')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Listing Guidance</button></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-gray-900 mb-6">Delivery Partner Policies</h4>
-            <ul className="space-y-4">
-              <li><button onClick={() => setCurrentPage('delivery-privacy')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Privacy Policy</button></li>
-              <li><button onClick={() => setCurrentPage('delivery-terms')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Terms & Conditions</button></li>
-              <li><button onClick={() => setCurrentPage('delivery-policy')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Delivery & Order Handling Policy</button></li>
-              <li><button onClick={() => setCurrentPage('fraud-abuse-policy')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Fraud & Abuse Policy</button></li>
-              <li><button onClick={() => setCurrentPage('account-suspension-policy')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Account Suspension Policy</button></li>
-              <li><button onClick={() => setCurrentPage('code-of-conduct')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Code of Conduct</button></li>
+              <li><button onClick={() => setCurrentPage('customerprivacypolicy')} className="text-gray-600 hover:text-gray-900 transition-colors text-sm text-left">Consumer Privacy &amp; Data Deletion Policy</button></li>
             </ul>
           </div>
         </div>
@@ -2074,7 +2060,35 @@ function CitiesPage() {
 export default function App() {
   const [hasKey, setHasKey] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState('food');
+  const [currentPage, setCurrentPageState] = useState(() => {
+    const path = window.location.pathname.toLowerCase();
+    if (path === '/customerprivacypolicy' || path === '/customerprivacypolicy/') {
+      return 'customerprivacypolicy';
+    }
+    return 'food';
+  });
+
+  const setCurrentPage = (page: string) => {
+    setCurrentPageState(page);
+    if (page === 'customerprivacypolicy') {
+      window.history.pushState({}, '', '/customerprivacypolicy');
+    } else if (page === 'food') {
+      window.history.pushState({}, '', '/');
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname.toLowerCase();
+      if (path === '/customerprivacypolicy' || path === '/customerprivacypolicy/') {
+        setCurrentPageState('customerprivacypolicy');
+      } else {
+        setCurrentPageState('food');
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     const checkKey = async () => {
@@ -2088,9 +2102,7 @@ export default function App() {
     checkKey();
   }, []);
 
-
-
-  const consumerPages = ['cities'];
+  const consumerPages = ['cities', 'customerprivacypolicy'];
   const isBlueTheme = !consumerPages.includes(currentPage);
   const themeClass = isBlueTheme ? 'theme-blue' : 'theme-green';
 
@@ -2111,16 +2123,7 @@ export default function App() {
         )}
         {currentPage === 'delivery' && <DeliveryPartnerPage />}
         {currentPage === 'roi-calculator' && <ROICalculatorPage />}
-        {currentPage === 'delivery-policy' && <DeliveryPolicyPage />}
-        {currentPage === 'fraud-abuse-policy' && <FraudAbusePolicyPage />}
-        {currentPage === 'delivery-terms' && <DeliveryTermsPage />}
-        {currentPage === 'account-suspension-policy' && <AccountSuspensionPolicyPage />}
-        {currentPage === 'code-of-conduct' && <CodeOfConductPage />}
-        {currentPage === 'delivery-privacy' && <DeliveryPrivacyPolicyPage />}
-        {currentPage === 'food-terms' && <FoodTermsPage />}
-        {currentPage === 'food-privacy' && <FoodPrivacyPage />}
-        {currentPage === 'food-refund' && <FoodRefundPolicyPage />}
-        {currentPage === 'food-listing' && <FoodListingGuidancePage />}
+        {currentPage === 'customerprivacypolicy' && <CustomerPrivacyPolicyPage />}
         {currentPage === 'cities' && <CitiesPage />}
       </main>
       <Footer currentPage={currentPage} setCurrentPage={setCurrentPage} />
