@@ -21,6 +21,7 @@ import {
   FileText, ShieldCheck, Landmark, IdCard, BookOpen, FileCheck, Smartphone, Menu, HelpCircle, Info, HeadphonesIcon
 } from 'lucide-react';
 import { GoogleGenAI } from '@google/genai';
+import SEO from './SEO';
 
 declare global {
   interface Window {
