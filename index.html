@@ -3,47 +3,88 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Primary SEO -->
+
+    <!-- Primary SEO (overridden dynamically by react-helmet-async) -->
     <title>Crevings – 0% Commission Food Delivery Platform for Restaurants</title>
     <meta name="description" content="Join Crevings, the fair food delivery platform with 0% commission. Go live in 2 minutes. Built for restaurants, cafes, cloud kitchens & home chefs in India." />
-    <meta name="keywords" content="0% commission food delivery, restaurant partner platform, food delivery India, cloud kitchen platform, Prayagraj food delivery" />
+    <meta name="keywords" content="0% commission food delivery, restaurant partner platform, food delivery India, cloud kitchen platform, Prayagraj food delivery, zero commission delivery" />
     <link rel="canonical" href="https://crevings-landingpage.vercel.app/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Crevings Marketplace Private Limited" />
 
-    <!-- Open Graph -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://crevings-landingpage.vercel.app/" />
     <meta property="og:title" content="Crevings – 0% Commission Food Delivery Platform" />
-    <meta property="og:description" content="Start getting orders instantly with 0% commission. Go live in 2 minutes." />
+    <meta property="og:description" content="Start getting orders instantly with 0% commission. Go live in 2 minutes. Built for modern food businesses." />
     <meta property="og:image" content="https://crevings-landingpage.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Crevings" />
+    <meta property="og:locale" content="en_IN" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://crevings-landingpage.vercel.app/" />
     <meta name="twitter:title" content="Crevings – 0% Commission Food Delivery Platform" />
     <meta name="twitter:description" content="Start getting orders instantly with 0% commission. Go live in 2 minutes." />
     <meta name="twitter:image" content="https://crevings-landingpage.vercel.app/og-image.png" />
 
-    <!-- Favicon & Fonts (keep existing) -->
+    <!-- Favicon & Fonts -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://crevings-landingpage.vercel.app/#organization",
+          "name": "Crevings Marketplace Private Limited",
+          "url": "https://crevings-landingpage.vercel.app/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://crevings-landingpage.vercel.app/favicon.svg"
+          },
+          "description": "Fair food delivery platform with 0% commission for restaurants and food businesses in India.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Crevings",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Android, iOS, Web",
+          "description": "0% commission food delivery platform for restaurants, cafes, cloud kitchens and home chefs in India. Go live in 2 minutes.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+          },
+          "url": "https://crevings-landingpage.vercel.app/",
+          "publisher": {
+            "@id": "https://crevings-landingpage.vercel.app/#organization"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "name": "Crevings",
+          "url": "https://crevings-landingpage.vercel.app/",
+          "publisher": {
+            "@id": "https://crevings-landingpage.vercel.app/#organization"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Crevings",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Android, iOS, Web",
-  "description": "0% commission food delivery platform for restaurants and food businesses in India.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "INR"
-  },
-  "url": "https://crevings-landingpage.vercel.app/"
-}
-</script>
-  ...
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
