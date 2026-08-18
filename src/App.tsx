@@ -2072,23 +2072,37 @@ export default function App() {
     return 'food';
   });
 
+    const [currentPage, setCurrentPageState] = useState(() => {
+    const path = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+    if (path.includes('customerprivacypolicy')) return 'customerprivacypolicy';
+    if (path.includes('delivery')) return 'delivery';
+    if (path.includes('cities')) return 'cities';
+    if (path.includes('roi-calculator')) return 'roi-calculator';
+    return 'food';
+  });
+
+  const PAGE_PATHS: Record<string, string> = {
+    food: '/',
+    delivery: '/delivery',
+    cities: '/cities',
+    customerprivacypolicy: '/customerprivacypolicy',
+    'roi-calculator': '/roi-calculator',
+  };
+
   const setCurrentPage = (page: string) => {
     setCurrentPageState(page);
-    if (page === 'customerprivacypolicy') {
-      window.history.pushState({}, '', '/customerprivacypolicy');
-    } else if (page === 'food') {
-      window.history.pushState({}, '', '/');
-    }
+    const path = PAGE_PATHS[page] ?? '/';
+    window.history.pushState({}, '', path);
   };
 
   useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname.toLowerCase();
-      if (path.includes('customerprivacypolicy')) {
-        setCurrentPageState('customerprivacypolicy');
-      } else {
-        setCurrentPageState('food');
-      }
+      const path = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+      if (path.includes('customerprivacypolicy')) setCurrentPageState('customerprivacypolicy');
+      else if (path.includes('delivery')) setCurrentPageState('delivery');
+      else if (path.includes('cities')) setCurrentPageState('cities');
+      else if (path.includes('roi-calculator')) setCurrentPageState('roi-calculator');
+      else setCurrentPageState('food');
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -2112,6 +2126,7 @@ export default function App() {
 
   return (
     <div className={`min-h-screen bg-white font-sans text-gray-900 selection:bg-primary-100 selection:text-primary-900 ${themeClass}`}>
+      <SEO page={currentPage} />
       <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <main>
         {currentPage === 'food' && (
